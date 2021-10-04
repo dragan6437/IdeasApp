@@ -1,3 +1,4 @@
+using Application.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,12 @@ namespace Web.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var appConfig = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appConfig);
+
+            var appSettings = appConfig.Get<AppSettings>();
+            DiModule.Register(services, appSettings.ConnectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
