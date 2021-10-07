@@ -43,8 +43,9 @@ namespace Persistance.Repositories
         }
         public int Delete(int id)
         {
-            var entity = _dbContext.Ideas.FirstOrDefault(x => x.Id == id);
-            _dbContext.Ideas.Remove(entity);
+            var idea = _dbContext.Ideas.FirstOrDefault(x => x.Id == id);
+
+            _dbContext.Ideas.Remove(idea);
             return _dbContext.SaveChanges();
         }
     }
