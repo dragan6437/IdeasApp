@@ -16,7 +16,9 @@ namespace Application.Helpers
                 Id = src.Id,
                 Title = src.Title,
                 Description = src.Description,
-                UniqueCode = src.UniqueCode,
+                UniqueCode = Guid.NewGuid().ToString(),
+                User = src.User?.Map(),
+                UserId = src.UserId,
                 DateCreated = DateTime.Now
             };
         }
@@ -28,7 +30,36 @@ namespace Application.Helpers
                 Id = src.Id,
                 Title = src.Title,
                 Description = src.Description,
-                UniqueCode = src.UniqueCode
+                UniqueCode = src.UniqueCode,
+                User = src.User?.Map(),
+                UserId = src.UserId
+            };
+        }
+
+        public static User Map(this UserDTO src)
+        {
+            return new User()
+            {
+                Id = src.Id,
+                Username = src.Username,
+                Password = src.Password,
+                Email = src.Email,
+                FirstName = src.FirstName,
+                LastName = src.LastName,
+                DateCreated = DateTime.Now
+            };
+        }
+
+        public static UserDTO Map(this User src)
+        {
+            return new UserDTO()
+            {
+                Id = src.Id,
+                Username = src.Username,
+                Password = src.Password,
+                Email = src.Email,
+                FirstName = src.FirstName,
+                LastName = src.LastName
             };
         }
     }

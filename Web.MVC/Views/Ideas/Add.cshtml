@@ -1,0 +1,26 @@
+﻿@model AddIdeaViewModel
+
+@{
+    ViewBag.Title = "Add Idea";
+}
+
+<div class="col-md-5 mx-auto">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <form asp-action="Add" method="post">
+        <div>
+            <input asp-for="Title" class="form-control p-4 my-3" placeholder="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div>
+            <input asp-for="Description" class="form-control p-4 my-3" placeholder="Description" />
+            <span asp-validation-for="Description" class="text-danger pb-3 mb-3"></span>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary btn-block p-2 mt-3" />
+        <a asp-action="Index" class="btn btn-secondary btn-block p-2 ">Cancel</a>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

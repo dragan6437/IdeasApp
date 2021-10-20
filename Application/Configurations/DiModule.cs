@@ -16,8 +16,11 @@ namespace Application.Configurations
         public static IServiceCollection Register(IServiceCollection services, string connectionString)
         {
             services.AddTransient<IIdeaService, IdeaService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
 
             services.AddTransient<IIdeaRepository, IdeaRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddDbContext<IdeasDbContext>(x => x.UseSqlServer(connectionString));
             return services;

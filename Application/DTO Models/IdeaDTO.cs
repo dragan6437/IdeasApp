@@ -12,5 +12,7 @@ namespace Application
         public string Title { get; set; }
         public string Description { get; set; }
         public string UniqueCode { get; set; }
+        public UserDTO User { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -26,12 +26,15 @@ namespace Application.Services
         public IdeaDTO GetIdea(int id)
         {
             var idea = _ideaRepository.GetById(id);
-            return idea.Map();
+            if (idea != null)
+                return idea.Map();
+
+            return null;
         }
 
-        public bool Add(IdeaDTO ideaDTO)
+        public bool Add(IdeaDTO ideaVm)
         {
-            var result = _ideaRepository.Insert(ideaDTO.Map());
+            var result = _ideaRepository.Insert(ideaVm.Map());
             if (result == 1)
                 return true;
 

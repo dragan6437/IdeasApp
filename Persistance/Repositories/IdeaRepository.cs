@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,12 @@ namespace Persistance.Repositories
         }
         public IEnumerable<Idea> GetAll()
         {
-            return _dbContext.Ideas;
+            return _dbContext.Ideas.Include(x => x.User);
         }
 
         public Idea GetById(int id)
         {
-            return _dbContext.Ideas.FirstOrDefault(x => x.Id == id);
+            return _dbContext.Ideas.Include(x => x.User).FirstOrDefault(x => x.Id == id);
         }
 
         public int Insert(Idea idea)
@@ -44,6 +45,8 @@ namespace Persistance.Repositories
         public int Delete(int id)
         {
             var idea = _dbContext.Ideas.FirstOrDefault(x => x.Id == id);
+            if (idea == null)
+                return -1;
 
             _dbContext.Ideas.Remove(idea);
             return _dbContext.SaveChanges();

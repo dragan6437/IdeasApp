@@ -1,0 +1,10 @@
+﻿@model CustomErrorViewModel
+
+@{
+    ViewBag.Title = "Error";
+ }
+
+<h2 class="text-danger">@Model.Title</h2>
+<p>@Model.Description</p>
+
+<a href="javascript:history.go(-1)">Go back</a>

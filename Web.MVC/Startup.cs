@@ -1,6 +1,7 @@
 using Application.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.MVC.Middlewares;
 
 namespace Web.MVC
 {
@@ -31,6 +33,8 @@ namespace Web.MVC
 
             var appSettings = appConfig.Get<AppSettings>();
             DiModule.Register(services, appSettings.ConnectionString);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +42,9 @@ namespace Web.MVC
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithReExecute("/CustomError/{0}");
+                app.UseExceptionHandler("/CustomError");
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -53,11 +59,13 @@ namespace Web.MVC
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorLoggingMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Ideas}/{action=Index}/{id?}");
             });
         }
     }
