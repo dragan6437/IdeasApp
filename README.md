@@ -18,6 +18,7 @@ In this app I created manual authentication and manually mapped the models just 
 4. Create other functionalities
 
 # Installation
-1. Download the code
-2. Run update-database
-3. Run Web.MVC project
+1. Download the code on your machine
+2. Set Web.MVC as startup project
+3. In Package Manager Console type update-database
+5. Run the application
